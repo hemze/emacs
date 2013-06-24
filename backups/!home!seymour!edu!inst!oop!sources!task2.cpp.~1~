@@ -1,0 +1,22 @@
+#include <cstdlib>
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+class transp{
+
+
+public:
+  transp(rows,cols){
+
+  }
+};
+
+int main(){
+  char inFileName[20];
+  cout << "Input file name: "; cin >> inFileName;
+  corrector newCorrector(inFileName);
+  return 0;
+}

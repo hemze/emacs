@@ -1,0 +1,13 @@
+(defclass t-users ()
+  ((id :col-type serial :initarg :id :accessor id)
+   (email :col-type string :initarg :email :accessor email)
+   (passwd :col-type string :initarg :passwd :accessor passwd)
+   (name :col-type (or db-null string) :initarg :name :accessor name)
+   (surname :col-type (or db-null string) :initarg :surname :accessor surname))
+  (:metaclass dao-class)
+  (:key id))
+
+(with-connection ylg::*db-spec*
+  (unless (table-exists-p 't-users)
+    (execute (dao-table-definition 't-users)))
+  (make-dao 't-users :email "test" :name "test" :surname "test" :passwd "test"))
