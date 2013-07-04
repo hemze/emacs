@@ -1,0 +1,27 @@
+COPY pic (id, pictype, pathnamefile, namefile, "timestamp") FROM
+stdin;
+1       png     /home/seymour/repo/ylg/pic/FILE-1613    FILE-1613
+188788
+2       png     /home/seymour/repo/ylg/pic/FILE-1614    FILE-1614
+341460
+3       png     /home/seymour/repo/ylg/pic/FILE-1615    FILE-1615
+472648
+4       png     /home/seymour/repo/ylg/pic/FILE-1616    FILE-1616
+525862
+5       png     /home/seymour/repo/ylg/pic/FILE-1617    FILE-1617
+578635
+6       png     /home/seymour/repo/ylg/pic/FILE-1618    FILE-1618
+646442
+7       png     /home/seymour/repo/ylg/pic/FILE-1619    FILE-1619
+705987
+8       png     /home/seymour/repo/ylg/pic/FILE-1620    FILE-1620
+754438
+9       png     /home/seymour/repo/ylg/pic/FILE-1492    FILE-1492
+35919
+10      png     /home/seymour/repo/ylg/pic/FILE-1493    FILE-1493
+99168
+11      png     /home/seymour/repo/ylg/pic/FILE-1592    FILE-1592
+1521948
+12      png     /home/seymour/repo/ylg/pic/FILE-1593    FILE-1593
+10488214
+\.

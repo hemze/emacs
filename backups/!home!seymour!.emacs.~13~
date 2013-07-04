@@ -415,7 +415,7 @@ to the previously saved position"
   (slime-quit-lisp)
   (kill-buffer "*slime-repl sbcl*"))
 
-(global-set-key [?\C-x ?\M-d] 'kill-slime)
+(global-set-key [?\C-x ?\M-k] 'kill-slime)
 
 (defun restart-slime (&optional restart)
   (interactive)

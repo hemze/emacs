@@ -402,27 +402,19 @@ to the previously saved position"
 (global-set-key [?\C-x ?\C-b] 'ibuffer)
 
 
-;;
-;;server control keybinding
-;;
-(defun start-slime ()
+(defun start-server ()
   (interactive)
   (slime))
-(global-set-key [?\C-x ?\M-s] 'start-slime)
+(global-set-key (kbd "\M-s s") 'start-server)
 
-(defun kill-slime ()
-  (interactive)
-  (slime-quit-lisp)
-  (kill-buffer "*slime-repl sbcl*"))
-
-(global-set-key [?\C-x ?\M-d] 'kill-slime)
-
-(defun restart-slime (&optional restart)
+(defun kill-n-revive-server ()
   (interactive)
   (progn
-    (slime-restart-inferior-lisp)))
-(global-set-key [?\C-x ?\M-r] 'restart-slime)
-
+    (switch-to-buffer "*inferior-lisp*")
+    (comint-delchar-or-maybe-eof nil)
+    (kill-buffer "*inferior-lisp*")
+    (slime)))
+(global-set-key (kbd "\M-s k") 'kill-n-revive-server)
 
 (global-font-lock-mode t) ;; Поддержка различных начертаний шрифтов в буфере
 (setq font-lock-maximum-decoration t) ;; Максимальное использование различных начертаний шрифтов

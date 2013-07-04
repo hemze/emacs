@@ -1,0 +1,4 @@
+(in-package #:ily)
+
+(defun show-reason (reason)
+  (let ((reason-name (query (:select :name :from 'reasons :where (:= :id reason) :single))

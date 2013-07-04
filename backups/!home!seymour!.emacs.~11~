@@ -412,10 +412,12 @@ to the previously saved position"
 
 (defun kill-slime ()
   (interactive)
-  (slime-quit-lisp)
-  (kill-buffer "*slime-repl sbcl*"))
-
-(global-set-key [?\C-x ?\M-d] 'kill-slime)
+  (progn
+    (switch-to-buffer "*inferior-lisp*")
+    (comint-delchar-or-maybe-eof nil)
+    (sleep-for 1)
+    (kill-buffer "*inferior-lisp*")))
+(global-set-key [?\C-x ?\M-k] 'kill-slime)
 
 (defun restart-slime (&optional restart)
   (interactive)
