@@ -18,7 +18,6 @@
  '(fci-rule-color "#383838")
  '(fill-column 70)
  '(global-linum-mode nil)
- '(org-agenda-files (quote ("c:/Users/Seymour.Makarov/AppData/Roaming/.emacs.d/ORG/common-tasks.org")))
  '(org-directory "~/.emacs.d/ORG/")
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . default) ("\\.doc[x]\\'" . default) ("\\.xls[x]\\'" . default))))
  '(org-support-shift-select t)
@@ -41,12 +40,6 @@
             (setq coding-system-for-read 'utf-8)
             (make-local-variable 'coding-system-for-write)
             (setq coding-system-for-write 'utf-8)))
-
-
-;; !!!!!!!__PAY ATTENTION__!!!!!!!
-;; **********************************
-(setq ange-ftp-ftp-program-name "c:/Users/Seymour.Makarov/Lisp/gnu2win/ftp.exe")
-;; **********************************
 
 
 ;; new shell
@@ -77,40 +70,11 @@
  ;; If there is more than one, they won't work right.
  )
 
-(setq slime-lisp-implementations '((sbcl ("sbcl"))))
-(setq slime-startup-animation nil)
-;; Путь к локльной копии Common Lisp Hyper Specifications.
-;; Если его не задавать - справка по функциям будет загружать страницы из интернета
-;; (setq common-lisp-hyperspec-root "file:///Users/lisp/HyperSpec")
-
 ;; !!!!!!!__PAY ATTENTION__!!!!!!!
 ;; **********************************
 (add-to-list 'load-path "~/.emacs.d/rtf/")
 (require 'rtf)
 ;; **********************************
-;; SLIME
-;; !!!!!!!__PAY ATTENTION__!!!!!!!
-;; **********************************
-;; (add-to-list 'load-path "~/.emacs.d/slime-20110829-cvs") ;; Путь к slime
-(add-to-list 'load-path "C:/Users/Seymour.Makarov/Lisp/libraries/slime-2013-04-05/")
-;; **********************************
-
-(setq slime-net-coding-system 'utf-8-unix)
-;(slime-setup '(slime-fancy))
-(setq slime-enable-evaluate-in-emacs t)
-
-(require 'slime)
-
-;; Модули SLIME, которые мы подключаем
-;;  Тут указанные - это, по моему мнению, базовый минимум.
-;;  В дальнейшем можете сами подробнее почитать о них
-;;    в мануале SLIME.
-(slime-setup '(slime-repl
-                slime-fuzzy
-                slime-fancy-inspector
-                slime-indentation))
-
-;;***********************************
 
 ;; Makes clipboard work
 (setq x-select-enable-clipboard t)
@@ -416,7 +380,6 @@ to the previously saved position"
 
 ;; ******************************************************************
 ;; Beautify
-(set-face-font 'default "Courier New: Regular:12:: Cyrillic")
 (blink-cursor-mode 0)
 (global-hl-line-mode 1)
 (setq font-lock-maximum-decoration t) ;; Максимальное использование различных начертаний шрифтов
@@ -457,11 +420,6 @@ to the previously saved position"
 
 
 ;; ******************************************************************
-;; eww
-(setq load-path
-      (append (list nil "~/.emacs.d/eww")
-      load-path))
-(require 'eww)
 
 (delete-selection-mode 1)
 (transient-mark-mode 1)
@@ -551,7 +509,7 @@ to the previously saved position"
 
 ;; org-mobile settings
 (setq org-directory "~/.emacs.d/ORG/")
-(setq org-mobile-directory "C:/Users/Seymour.Makarov/Dropbox/Apps/MobileOrg/")
+;;(setq org-mobile-directory "C:/Users/Seymour.Makarov/Dropbox/Apps/MobileOrg/")
 (setq org-mobile-files (list "common-tasks.org" "tasks-planned.org"))
 (setq org-mobile-inbox-for-pull "~/.emacs.d/ORG/flagged.org")
 
