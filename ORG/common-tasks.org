@@ -1,0 +1,10 @@
+#+STARTUP:  --showall
+#+STARTUP: hidestars
+#+TAGS:
+http://www.latexbuch.de/install-latex-windows-7/
+
+ 	Адрес ПУА: 	https://cp.beget.ru
+  [[https://cp.beget.ru/login_.php?submit%3D1&name%3Dfh79116j&password%3DqWtHRDyPc][Перейти в Панель Управления]]
+	Имя пользователя: fh79116j
+	Пароль: qWtHRDyPc
+	Сервер: shattle5

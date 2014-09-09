@@ -1,0 +1,36 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file c:/Users/Seymour.Makarov/AppData/Roaming/.emacs.d/ORG/projects.org
+
+
+*** DONE Перерасчеты - сформулировать вопросы (Леше В., Татьяне Г.)
+SCHEDULED: <2014-02-11 Вт>
+CLOCK: [2014-02-11 Вт 10:15]--[2014-02-11 Вт 11:15] =>  1:00
+
+Archived entries from file c:/Users/Seymour.Makarov/AppData/Roaming/.emacs.d/ORG/projects.org
+
+
+*** DONE Перерасчеты - сформулировать вопросы (Леше В., Татьяне Г.)
+SCHEDULED: <2014-02-11 Вт>
+CLOCK: [2014-02-11 Вт 10:15]--[2014-02-11 Вт 11:15] =>  1:00
+
+* IN PROCESS Рассылка: размотать проблему (неверный адрес)
+CLOCK: [2014-02-12 Ср 15:36]--[2014-02-12 Ср 17:36] =>  2:00
+:PROPERTIES:
+:ARCHIVE_TIME: 2014-02-12 Ср 17:36
+:ARCHIVE_FILE: ~/.emacs.d/ORG/projects.org
+:ARCHIVE_OLPATH: Формирование выходных документов/nact/Доставка - изучить вопрос детально.
+:ARCHIVE_CATEGORY: Проекты
+:ARCHIVE_TODO: IN PROCESS
+:END:
+- Note taken on [2014-02-12 Ср 14:06] \\
+  250: 550 5.7.1 Client does not have permissions to send as this sender
+- [X] Прочитать документацию.
+- [X] Уяснить вопрос о параметрах.
+- [X] Уяснить, как подтягиваются данные при отправке реестра (и почему
+  подставлялся Ромин адрес).
+- [X] ODPS_DLVR_TRANSFER
+- [X] ODPS_GRPT_ADMIN
+- [ ] Настроить доставку по ftp
+- [ ] Настроить доставку на email
