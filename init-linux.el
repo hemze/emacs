@@ -18,7 +18,9 @@
  '(fci-rule-color "#383838")
  '(fill-column 70)
  '(global-linum-mode nil)
+ '(org-agenda-files (quote ("c:/Users/Seymour.Makarov/AppData/Roaming/.emacs.d/ORG/common-tasks.org")))
  '(org-directory "~/.emacs.d/ORG/")
+ '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . default) ("\\.doc[x]\\'" . default) ("\\.xls[x]\\'" . default))))
  '(org-support-shift-select t)
  '(show-paren-mode t)
  '(tool-bar-mode nil)
@@ -39,6 +41,12 @@
             (setq coding-system-for-read 'utf-8)
             (make-local-variable 'coding-system-for-write)
             (setq coding-system-for-write 'utf-8)))
+
+
+;; !!!!!!!__PAY ATTENTION__!!!!!!!
+;; **********************************
+(setq ange-ftp-ftp-program-name "c:/Users/Seymour.Makarov/Lisp/gnu2win/ftp.exe")
+;; **********************************
 
 
 ;; new shell
@@ -69,12 +77,40 @@
  ;; If there is more than one, they won't work right.
  )
 
+(setq slime-lisp-implementations '((sbcl ("sbcl"))))
+(setq slime-startup-animation nil)
+;; Путь к локльной копии Common Lisp Hyper Specifications.
+;; Если его не задавать - справка по функциям будет загружать страницы из интернета
+;; (setq common-lisp-hyperspec-root "file:///Users/lisp/HyperSpec")
+
 ;; !!!!!!!__PAY ATTENTION__!!!!!!!
 ;; **********************************
 (add-to-list 'load-path "~/.emacs.d/rtf/")
 (require 'rtf)
 ;; **********************************
-(set-language-environment "UTF-8")
+;; SLIME
+;; !!!!!!!__PAY ATTENTION__!!!!!!!
+;; **********************************
+;; (add-to-list 'load-path "~/.emacs.d/slime-20110829-cvs") ;; Путь к slime
+(add-to-list 'load-path "C:/Users/Seymour.Makarov/Lisp/libraries/slime-2013-04-05/")
+;; **********************************
+
+(setq slime-net-coding-system 'utf-8-unix)
+;(slime-setup '(slime-fancy))
+(setq slime-enable-evaluate-in-emacs t)
+
+(require 'slime)
+
+;; Модули SLIME, которые мы подключаем
+;;  Тут указанные - это, по моему мнению, базовый минимум.
+;;  В дальнейшем можете сами подробнее почитать о них
+;;    в мануале SLIME.
+(slime-setup '(slime-repl
+                slime-fuzzy
+                slime-fancy-inspector
+                slime-indentation))
+
+;;***********************************
 
 ;; Makes clipboard work
 (setq x-select-enable-clipboard t)
@@ -94,12 +130,6 @@
 (add-hook 'before-save-hook '(lambda ()
                                ;; Удаляем оконечные пробелы
                                (delete-trailing-whitespace)))
-;; Режим по умолчанию c переносом строк по ширине 130
-(setq default-major-mode 'text-mode)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-(setq auto-fill-mode t)
-(setq fill-column 130)
-
 ;; Создание резервных копий редактируемых файлов (Backup)
 ;; (info "(emacs)Auto Save")
 (setq auto-save-interval 512)                ;; Количество нажатий до автосохранения
@@ -125,9 +155,6 @@
 
 ;; Интерфейс
 
-;; Делаем емакс аскетичным
-(menu-bar-mode nil)
-;; (tool-bar-mode nil)
 ;; (scroll-bar-mode nil)
 (setq column-number-mode t)                  ;; Показывать номер текущей колонки
 (setq line-number-mode t)                    ;; Показывать номер текущей строки
@@ -148,8 +175,8 @@
 (file-name-shadow-mode t)                    ;; Затенять игнорируемую часть имени файла
 (setq resize-mini-windows t)                 ;; Изменять при необходимости размер минибуфера по вертикали
 (auto-image-file-mode t)                     ;; Показывать картинки
+(setq read-quoted-char-radix 16)             ;; Ввод символов по коду в десятичном счислении `C-q'
 
-(setq read-quoted-char-radix 10)             ;; Ввод символов по коду в десятичном счислении `C-q'
 (put 'narrow-to-region 'disabled nil)        ;; Разрешить ограничение редактирования только в выделенном участке
 (put 'narrow-to-page 'disabled nil)          ;; Разрешить ограничение редактирования только на текущей странице
 (setq scroll-step 1)                         ;; Перематывать по одной строке
@@ -168,17 +195,6 @@
 ;;(setq-default cursor-type 'nil)
 ;;(setq-default cursor-type 'bar)
 
-(setq scroll-conservatively 50)              ;; гладкий скроллинг с полями
-(setq scroll-preserve-screen-position 't)
-(setq scroll-margin 10)
-
-(setq my-author-name (getenv "USER"))
-(setq user-full-name (getenv "USER"))
-(setq require-final-newline t)			     ;; always end a file with a newline
-
-;; Красный не мигающий (!) курсор
-(set-cursor-color "red")
-(blink-cursor-mode nil)
 ;; мышка...
 (global-set-key [vertical-scroll-bar down-mouse-1] 'scroll-bar-drag) ;; Scroll Bar gets dragged by mouse butn 1
 (setq mouse-yank-at-point 't) 		    ;; Paste at point NOT at cursor
@@ -186,9 +202,11 @@
 
 (show-paren-mode 1)                     ;; выделение парных скобок
 ;(setq show-paren-style 'expression)    ;; выделять все выражение в скобках
+;; отступ при переводе строки в lisp-mode
 (add-hook 'lisp-mode-hook
 		  '(lambda ()
 			(local-set-key (kbd "RET") 'newline-and-indent)))
+;; Установка раскладки как в виндовс при переключении по С-\
 
 (global-set-key (kbd "\C-\\") 'user-toggle-input-method)
 (global-set-key (kbd "\e(") 'user-to-cyr) ; Alt+Shift+9
@@ -196,11 +214,6 @@
 
 (defun user-cyrillic-redefinitions ()
   "Set of global key binding for cyrillic.
-;;(set-input-method "russian-computer")
-
-
-(defun user-cyrillic-redefinitions ()
-  "Set of global keys binding for cyrillic.
    This function is to be called from user-toggle-input-method"
   (global-set-key (kbd "?") (lambda()(interactive)(insert ",")))
   (global-set-key (kbd "/") (lambda()(interactive)(insert ".")))
@@ -246,8 +259,11 @@
   (when (string= current-input-method "cyrillic-jcuken")
       (user-toggle-input-method)))
 
-;; Итак, я предлагаю команду 'Meta-Meta-Shift-/' для того, чтобы запомнить текущую позицию
-;; и команду 'Meta-Meta-/' для того, чтобы перейти на запомненную позицию, прежде запомнив текущую.
+;; ******************************************************************
+;; Итак, я предлагаю команду 'Meta-Meta-Shift-/' для того, чтобы запомнить
+;; текущую позицию
+;; и команду 'Meta-Meta-/' для того, чтобы перейти на запомненную позицию,
+;; прежде запомнив текущую.
 ;;Toggle between saved positions as in MIM editor
 (defun save-point-and-switch ()
   "Save current point to register 0 and go
@@ -282,7 +298,7 @@ to the previously saved position"
 
 (global-set-key (kbd "C-x /")
 				'comment-or-uncomment-this)
-
+;; ******************************************************************
 ;; Автоматическое выравнивание вставляемого из буфера обмена кода
 (defadvice yank (after indent-region activate)
   (if (member major-mode
@@ -302,55 +318,15 @@ to the previously saved position"
 (global-set-key "\C-r" 'isearch-backward)
 (add-hook 'isearch-mode-hook
 		  '(lambda ()
-;; Поиск от kostafey C-f|C-r C-v
-(global-unset-key "\C-f")
-(global-set-key "\C-f" 'isearch-forward)
-(global-set-key "\C-r" 'isearch-backward)
-(add-hook 'isearch-mode-hook
-		  '(lambda ()
-			 (define-key isearch-mode-map "\C-f"
-			   'isearch-repeat-forward)
+			 (define-key isearch-mode-map "\C-r"
+			   'isearch-repeat-backward)
+			 (define-key isearch-mode-map "\C-v"
+			   'isearch-yank-kill)))
+
 ;; ******************************************************************
 ;; GOTOLINE
 (global-set-key [?\M-g] 'goto-line)
 ;; ******************************************************************
-
-;; ;; conkeror-browser
-;; (eval-after-load "browse-url"
-;;   '(defun browse-url-conkeror (url &optional new-window)
-;;      "Ask the Conkeror WWW browser to load URL."
-;;      (interactive (browse-url-interactive-arg "URL: "))
-;;      ;; URL encode any `confusing' characters in the URL. This needs to
-;;      ;; include at least commas; presumably also close parens and dollars.
-;;      (while (string-match "[,)$]" url)
-;;        (setq url (replace-match
-;; 				  (format "%%%x" (string-to-char (match-string 0 url)))
-;; 				  t t url)))
-;;      (let* ((process-environment (browse-url-process-environment))
-;; 			(process
-;; 			 (apply 'start-process
-;; 					(concat "conkeror " url)
-;; 					nil "conkeror"
-;; 					(list url)))))))
-;; ;; set conkeror-browser
-;; (setq browse-url-browser-function 'browse-url-conkeror)
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;; EXTENSIONS ;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;; GOTOLINE
-(global-set-key [?\M-g] 'goto-line)
-(global-set-key (kbd "\e\eg") 'goto-line)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;; UTILITES ;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 ;; Заменить окончания строк в формате DOS ^M на Unix
 (defun dos-to-unix ()
   (interactive)
@@ -359,12 +335,11 @@ to the previously saved position"
     (while (search-forward "\r" nil t)
       (replace-match ""))))
 ;; ******************************************************************
-
 ;; Удалить пробельные символы в конце строк
 (defun delete-trailing-whitespaces ()
   (interactive "*")
   (delete-trailing-whitespace))
-
+;; ******************************************************************
 ;; Поиск в Google по содержимому региона
 (defun google-region (beg end)
   "Google the selected region."
@@ -382,28 +357,11 @@ to the previously saved position"
       (quote ((sequence "TODO(t)" "STARTED(s)" "WROTE(w)" "PENDING(p@/)" "IN PROCESS(i)" "UNDEFINED(u)" "|" "DONE(d/!)" "CANCELLED(c@/)")
               (sequence "OPEN(o)" "|" "CLOSED(C)"))))
 
-;; Поиск в Yandex по содержимому региона
-(defun yandex-region (beg end)
-  "Google the selected region."
-  (interactive "r")
-  (browse-url (concat "http://yandex.ru/yandsearch?text="
-                      (buffer-substring beg end))))
-
-
-; OrgMode
-(require 'org-install)
-;; Включение автоматического переключения в Org Mode при открытии файла с расширением .org:
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
-;; Задание цепочек ключевых слов (переключение между словами клавишами Shift + Right или + Left с курсором на заголовке). "|" отмечает границу, если заголовок в статусе после этого разделителя, то он "выполнен", это влияет на планирование и отображение в Agenda Views:
-(setq org-todo-keywords '((sequence "TODO(t)" "START(s)" "MEET(m)" "CALL(c)" "DELEGATED(d)" "WAIT(w)" "|" "CANCEL(r)"  "DONE(f)")))
-
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 ;; Задание произвольного начертания ключевым словам:
 (setq org-todo-keyword-faces
-
       '(("UNDEFINED" . (:foreground "red3" :weight bold))
         ("TODO" . (:foreground "red3" :weight bold))
         ("STARTED" . (:foreground "MediumBlue" :weight bold))
@@ -414,6 +372,8 @@ to the previously saved position"
         ("DONE" . (:foreground "forestgreen" :weight bold)))
       )
 
+;; !!!!!!!__PAY ATTENTION__!!!!!!!
+;; **********************************
 (setq org-agenda-files (quote ("~/.emacs.d/ORG/all.org" "~/.emacs.d/ORG/actslist.org" "~/.emacs.d/ORG/projects.org" "~/.emacs.d/ORG/diary.org" "~/.emacs.d/ORG/regular.org" "~/.emacs.d/ORG/domesticity.org")))
 ;; **********************************
 (setq org-agenda-restore-windows-after-quit t)
@@ -433,43 +393,8 @@ to the previously saved position"
 
 (global-set-key [?\C-x ?\C-g] 'goto-line)
 (global-set-key [?\C-x ?\C-b] 'ibuffer)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-(setq file-name-coding-system 'utf-8-emacs)
-
-(global-set-key [?\C-z] 'shell)
-(global-set-key [?\C-x ?\C-g] 'goto-line)
-(global-set-key [?\C-x ?\C-b] 'ibuffer)
-
-
-;;
-;;server control keybinding
->>>>>>> 940c52a8e0c8e75c1c994aee2f467339d8a66ece
+;; ******************************************************************
+;; slime control keybinding
 ;;
 (defun start-slime ()
   (interactive)
@@ -489,16 +414,11 @@ to the previously saved position"
     (slime-restart-inferior-lisp)))
 (global-set-key [?\C-x ?\M-r] 'restart-slime)
 
-<<<<<<< HEAD
 ;; ******************************************************************
 ;; Beautify
 (set-face-font 'default "Courier New: Regular:12:: Cyrillic")
 (blink-cursor-mode 0)
 (global-hl-line-mode 1)
-=======
-
-(global-font-lock-mode t) ;; Поддержка различных начертаний шрифтов в буфере
->>>>>>> 940c52a8e0c8e75c1c994aee2f467339d8a66ece
 (setq font-lock-maximum-decoration t) ;; Максимальное использование различных начертаний шрифтов
 (if window-system (setq scalable-fonts-allowed t)) ;; Масштабируемые шрифты в графическом интерфейсе
 (setq read-file-name-completion-ignore-case t) ;; Дополнение имён файлов без учёта регистра
@@ -515,18 +435,10 @@ to the previously saved position"
 (temp-buffer-resize-mode t) ;; Высота временного буфера зависит от его содержимого
 (setq frame-title-format '("" "%b @ Emacs " emacs-version)) ;; Заголовок окна
 
-<<<<<<< HEAD
-=======
-(setq scroll-conservatively 50) ;; гладкий скроллинг с полями
-(setq scroll-preserve-screen-position 't)
-(setq scroll-margin 10)
-
->>>>>>> 940c52a8e0c8e75c1c994aee2f467339d8a66ece
 (setq my-author-name (getenv "USER"))
 (setq user-full-name (getenv "USER"))
 (setq require-final-newline t);; always end a file with a newline
 
-<<<<<<< HEAD
 ;; ******************************************************************
 ;; Move between windows (for org-mode):
 (global-set-key (kbd "C-M-<left>")  'windmove-left)
@@ -550,39 +462,6 @@ to the previously saved position"
       (append (list nil "~/.emacs.d/eww")
       load-path))
 (require 'eww)
-=======
-;; Красный не мигающий (!) курсор
-(set-cursor-color "red")
-(blink-cursor-mode nil)
-;; мышка...
-(global-set-key [vertical-scroll-bar down-mouse-1] 'scroll-bar-drag) ;; Scroll Bar gets dragged by mouse butn 1
-(setq mouse-yank-at-point 't) ;; Paste at point NOT at cursor
-
-
-
-(setq scroll-conservatively 50)
-(setq scroll-preserve-screen-position 't)
-(setq scroll-margin 5)
-(setq scroll-step 1)
-(windmove-default-keybindings 'meta)
-(desktop-save-mode t)
-
-(add-hook 'lisp-mode-hook
-	    '(lambda ()
-	      (local-set-key (kbd "RET") 'newline-and-indent)))
-
-(setq load-path
-      (append (list nil "~/.emacs.d")
-      load-path))
-
-
-(setq load-path
-      (append (list nil "~/.emacs.d/php")
-      load-path))
-
-(setq load-path
-      (append (list nil "~/.emacs.d/psgml")
-      load-path))
 
 (delete-selection-mode 1)
 (transient-mark-mode 1)
@@ -626,31 +505,8 @@ to the previously saved position"
                          (mode . emacs-lisp-mode)))
                ("SQL" (or
                          (mode . sql-mode)
-                         (name . "^\\*.sql"))))
-
-(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-
-(load "sgml-mode")
-(add-to-list 'auto-mode-alist '("\\.html$" . sgml-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml$" . sgml-mode))
-(add-to-list 'auto-mode-alist '("\\.xml$" . sgml-mode))
-;;sgml vars
-(setq sgml-balanced-tag-edit t)
-(setq sgml-auto-insert-required-elements t)
-(setq sgml-insert-defaulted-attributes t)
-(setq sgml-tag-region-if-active t)
-(setq sgml-insert-element t)
-(setq sgml-set-face t)
-(setq sgml-live-element-indicator t)
-
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(setq case-fold-search t)
-(setq read-file-name-completion-ignore-case t)
-(show-paren-mode t)
-(put 'upcase-region 'disabled nil)
-
+                         (name . "^\\*.sql")))
+               ))))
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-switch-to-saved-filter-groups
@@ -661,8 +517,6 @@ to the previously saved position"
                     (size 9 -1 :right) " "
                     (mode 16 16 :left :elide) " " filename-and-process)
               (mark " " (name 16 -1) " " filename))))
-;; ******************************************************************
-(when (load (expand-file-name "~/.emacs.d/elpa/package.el")) (package-initialize))
 
 ;; ******************************************************************
 ;; FB2 viewing
