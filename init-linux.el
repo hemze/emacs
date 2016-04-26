@@ -14,7 +14,8 @@
  '(comint-scroll-show-maximum-output t)
  '(comint-scroll-to-bottom-on-input t)
  '(comint-scroll-to-bottom-on-output t)
- '(custom-enabled-themes nil)
+  '(custom-enabled-themes (quote (deeper-blue)))
+                                        ;manoj-dark tango-dark tsdh-dark
  '(fci-rule-color "#383838")
  '(fill-column 80)
  '(global-linum-mode nil)
